@@ -159,21 +159,10 @@ if __name__ == "__main__":
 
     net            = nets[settings["NET_ARCH"]][0](1)
     out_dim_factor = nets[settings["NET_ARCH"]][1]
+    net.load_weights(settings["PRED_MODEL"])
 
-
-    net = nets[settings["NET_ARCH"]][0](1)
-    out_dim_factor = nets[settings["NET_ARCH"]][1]
-
-    # net = fe.extractor
     net.summary()
 
-    # m = Model([net.inputs[0]], net.outputs)
-
-    # m.summary()
-    # m.save("darknet19.h5")
-
-    # sys.exit(0)
-    net.load_weights(settings["PRED_MODEL"])
 
     if len(sys.argv) > 2:
         input_data = sys.argv[2]

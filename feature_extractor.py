@@ -13,6 +13,7 @@ from keras.layers.pooling import MaxPooling2D
 from keras.optimizers import Adadelta, SGD, Adam
 from keras import backend as K
 from keras.layers import Input, Convolution2D, MaxPooling2D, Activation, concatenate, Dropout, GlobalAveragePooling2D, warnings, Lambda, ReLU, Add, Multiply
+from keras.engine.input_layer import InputLayer
 from keras.utils import get_file
 from keras.utils import layer_utils
 from keras.models import load_model
@@ -344,95 +345,96 @@ class FeatureExtractor:
         inputs = Input(shape=(None, None, 3))
        
         net = Conv2D(32, 3, padding="same", use_bias=False, name="0_conv")(inputs)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="0_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
         net = MaxPooling2D(pool_size=(2,2), strides=(2,2), name="1_max")(net)
 
         net = Conv2D(64, 3, padding="same", use_bias=False, name="2_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="2_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
         net = MaxPooling2D(pool_size=(2,2), strides=(2,2), name="3_max")(net)
 
         net = Conv2D(128, 3, padding="same", use_bias=False, name="4_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="4_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(64, 1, padding="same", use_bias=False, name="5_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="5_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
         
         net = Conv2D(128, 3, padding="same", use_bias=False, name="6_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="6_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
         net = MaxPooling2D(pool_size=(2,2), strides=(2,2), name="7_max")(net)
 
         net = Conv2D(256, 3, padding="same", use_bias=False, name="8_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="8_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(128, 1, padding="same", use_bias=False, name="9_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="9_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(256, 3, padding="same", use_bias=False, name="10_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="10_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
         net = MaxPooling2D(pool_size=(2,2), strides=(2,2), name="11_max")(net)
 
         net = Conv2D(512, 3, padding="same", use_bias=False, name="12_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="12_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(256, 1, padding="same", use_bias=False, name="13_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="13_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(512, 3, padding="same", use_bias=False, name="14_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="14_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(256, 1, padding="same", use_bias=False, name="15_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="15_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(512, 3, padding="same", use_bias=False, name="16_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="16_bn")(net)
         c16 = LeakyReLU(alpha=0.1)(net)
         net = MaxPooling2D(pool_size=(2,2), strides=(2,2), name="17_max")(c16)
 
         net = Conv2D(1024, 3, padding="same", use_bias=False, name="18_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="18_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(512, 1, padding="same", use_bias=False, name="19_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="19_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(1024, 3, padding="same", use_bias=False, name="20_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="20_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(512, 1, padding="same", use_bias=False, name="21_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="21_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(1024, 3, padding="same", use_bias=False, name="22_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="22_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(1024, 3, padding="same", use_bias=False, name="23_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="23_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(1024, 3, padding="same", use_bias=False, name="24_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="24_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         conv_id = 25
-        if version == 1:
+        # if version == 1:
+        if True:
             c16 = Conv2D(64, 1, padding="same", use_bias=False, name="{}_conv".format(conv_id))(c16)
             conv_id += 1
-            c16 = BatchNormalization(epsilon=bn_epsilon)(c16)
+            c16 = BatchNormalization(epsilon=bn_epsilon, name="{}_bn".format(conv_id))(c16)
             c16 = LeakyReLU(alpha=0.1)(c16)            
 
         # c16 = Lambda(space_to_depth_x2)(c16)
@@ -441,7 +443,7 @@ class FeatureExtractor:
 
         net = Conv2D(1024, 3, padding="same", use_bias=False, name="{}_conv".format(conv_id))(net)
         conv_id += 1
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="{}_bn".format(conv_id))(net)
         net = LeakyReLU(alpha=0.1)(net)        
 
 
@@ -453,7 +455,8 @@ class FeatureExtractor:
             self.extractor = Model([inputs, self.true_boxes, self.anchors_map], net)
 
             print "Loading model {} to tune...".format(self.settings["BASE_MODEL_WEIGHTS"]),
-            self.extractor.load_weights(self.settings["BASE_MODEL_WEIGHTS"])
+            if version == 1:
+                self.extractor.load_weights(self.settings["BASE_MODEL_WEIGHTS"])
             print "Done!"
             print "Exchanging last layer...",
             net = Conv2D((self.settings["CLASSES"] + 5) * self.settings["DETECTORS"], 1, padding="same", use_bias=True, kernel_initializer='glorot_uniform', name="last_conv")(self.extractor.layers[-2].output)
@@ -609,97 +612,120 @@ class FeatureExtractor:
     def yolo_convolutional_net_att_2(self,version):
         bn_epsilon = 0.0
         inputs = Input(shape=(None, None, 3))
+        # inputs = Input(batch_shape=(1,416,416,3))
        
         net = Conv2D(32, 3, padding="same", use_bias=False, name="0_conv")(inputs)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="0_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
         net = MaxPooling2D(pool_size=(2,2), strides=(2,2), name="1_max")(net)
 
         net = Conv2D(64, 3, padding="same", use_bias=False, name="2_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
-        net = LeakyReLU(alpha=0.1)(net)
-        net = MaxPooling2D(pool_size=(2,2), strides=(2,2), name="3_max")(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="2_bn")(net)
+        conv_3 = LeakyReLU(alpha=0.1)(net)
 
-        net = Conv2D(128, 3, padding="same", use_bias=False, name="4_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+    
+        att_3 = Conv2D(128, 3, padding="same", use_bias=False, name="att_conv_3_A")(conv_3)        
+        att_3 = LeakyReLU(alpha=0.1)(att_3)
+        att_3 = Conv2D(128, 1, strides=(2,2), padding="same", use_bias=False, name="att_conv_3_B", activation="softmax")(att_3)        
+
+        net = MaxPooling2D(pool_size=(2,2), strides=(2,2), name="3_max")(conv_3)
+
+        conv_4 = Conv2D(128, 3, padding="same", use_bias=False, name="4_conv")(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="4_bn")(conv_4)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(64, 1, padding="same", use_bias=False, name="5_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="5_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
         
         net = Conv2D(128, 3, padding="same", use_bias=False, name="6_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
-        net = LeakyReLU(alpha=0.1)(net)
-        net = MaxPooling2D(pool_size=(2,2), strides=(2,2), name="7_max")(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="6_bn")(net)
+        lk_relu_3 = LeakyReLU(alpha=0.1)(net)
+
+        lk_relu_3 = Multiply()([att_3, lk_relu_3])
+
+        net = MaxPooling2D(pool_size=(2,2), strides=(2,2), name="7_max")(lk_relu_3)
 
         net = Conv2D(256, 3, padding="same", use_bias=False, name="8_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="8_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(128, 1, padding="same", use_bias=False, name="9_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="9_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(256, 3, padding="same", use_bias=False, name="10_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
-        net = LeakyReLU(alpha=0.1)(net)
-        net = MaxPooling2D(pool_size=(2,2), strides=(2,2), name="11_max")(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="10_bn")(net)
+        conv_10 = LeakyReLU(alpha=0.1)(net)
+
+
+        att_10 = Conv2D(256, 3, padding="same", use_bias=False, name="att_conv_10_A")(conv_10)        
+        att_10 = LeakyReLU(alpha=0.1)(att_10)
+        att_10 = Conv2D(256, 1, strides=(2,2), padding="same", use_bias=False, name="att_conv_10_B", activation="softmax")(att_10)        
+
+
+        net = MaxPooling2D(pool_size=(2,2), strides=(2,2), name="11_max")(conv_10)
 
         net = Conv2D(512, 3, padding="same", use_bias=False, name="12_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="12_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(256, 1, padding="same", use_bias=False, name="13_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="13_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
+
         net = Conv2D(512, 3, padding="same", use_bias=False, name="14_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="14_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(256, 1, padding="same", use_bias=False, name="15_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
-        net = LeakyReLU(alpha=0.1)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="15_bn")(net)
+        lk_relu_15 = LeakyReLU(alpha=0.1)(net)
 
-        net = Conv2D(512, 3, padding="same", use_bias=False, name="16_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+
+
+        lk_relu_3 = Multiply()([att_10, lk_relu_15])
+
+
+        net = Conv2D(512, 3, padding="same", use_bias=False, name="16_conv")(lk_relu_15)
+        net = BatchNormalization(epsilon=bn_epsilon, name="16_bn")(net)
         c16 = LeakyReLU(alpha=0.1)(net)
         net = MaxPooling2D(pool_size=(2,2), strides=(2,2), name="17_max")(c16)
 
         net = Conv2D(1024, 3, padding="same", use_bias=False, name="18_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="18_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(512, 1, padding="same", use_bias=False, name="19_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="19_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(1024, 3, padding="same", use_bias=False, name="20_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="20_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(512, 1, padding="same", use_bias=False, name="21_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="21_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(1024, 3, padding="same", use_bias=False, name="22_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="22_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(1024, 3, padding="same", use_bias=False, name="23_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="23_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         net = Conv2D(1024, 3, padding="same", use_bias=False, name="24_conv")(net)
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="24_bn")(net)
         net = LeakyReLU(alpha=0.1)(net)
 
         conv_id = 25
         if version == 1:
             c16 = Conv2D(64, 1, padding="same", use_bias=False, name="{}_conv".format(conv_id))(c16)
             conv_id += 1
-            c16 = BatchNormalization(epsilon=bn_epsilon)(c16)
+            c16 = BatchNormalization(epsilon=bn_epsilon, name="{}_bn".format(conv_id))(c16)
             c16 = LeakyReLU(alpha=0.1)(c16)            
 
         # c16 = Lambda(space_to_depth_x2)(c16)
@@ -708,7 +734,7 @@ class FeatureExtractor:
 
         net = Conv2D(1024, 3, padding="same", use_bias=False, name="{}_conv".format(conv_id))(net)
         conv_id += 1
-        net = BatchNormalization(epsilon=bn_epsilon)(net)
+        net = BatchNormalization(epsilon=bn_epsilon, name="{}_bn".format(conv_id))(net)
         net = LeakyReLU(alpha=0.1)(net)        
 
 
@@ -719,20 +745,14 @@ class FeatureExtractor:
             self.extractor = Model([inputs, self.true_boxes, self.anchors_map], net)
 
             print "Loading model {} to tune...".format(self.settings["BASE_MODEL_WEIGHTS"]),
-            self.extractor.load_weights(self.settings["BASE_MODEL_WEIGHTS"])
+            # self.extractor.load_weights(self.settings["BASE_MODEL_WEIGHTS"])
             print "Done!"
             print "Exchanging last layer...",
-            last_layer = self.extractor.layers[-2].output
-
-            att_layer = Conv2D((self.settings["CLASSES"] + 5) * self.settings["DETECTORS"], 1, padding="same", use_bias=True, kernel_initializer='glorot_uniform', name="att_conv", activation="softmax")(last_layer)
-
-            out_net = Conv2D((self.settings["CLASSES"] + 5) * self.settings["DETECTORS"], 1, padding="same", use_bias=True, kernel_initializer='glorot_uniform', name="last_conv")(last_layer)            
-            out_net = Multiply()([out_net, att_layer])
-            out_net = Conv2D((self.settings["CLASSES"] + 5) * self.settings["DETECTORS"], 1, padding="same", use_bias=True, kernel_initializer='glorot_uniform', name="out_conv")(out_net)
-            self.extractor = Model([inputs, self.true_boxes, self.anchors_map], out_net)
+            net = Conv2D((self.settings["CLASSES"] + 5) * self.settings["DETECTORS"], 1, padding="same", use_bias=True, kernel_initializer='glorot_uniform', name="last_conv")(self.extractor.layers[-2].output)
+            self.extractor = Model([inputs, self.true_boxes, self.anchors_map], net)
             print "Done!"
         else:
-            net = Conv2D((self.settings["BASE_MODEL_CLASSES"] + 5) * self.settings["DETECTORS"], 1, padding="same", use_bias=True, name="last_conv")(net)
+            net = Conv2D((self.settings["CLASSES"] + 5) * self.settings["DETECTORS"], 1, padding="same", use_bias=True, name="last_conv")(net)
             self.extractor = Model([inputs, self.true_boxes, self.anchors_map], net)
         self.outputs += [net]
         return self.extractor
@@ -1193,3 +1213,13 @@ class FeatureExtractor:
         loss = tf.reduce_sum(tf.square(delta), name="loss")
 
         return loss
+
+    def surgery(self, model_A, model_B):
+        for layer in model_A.layers:
+            name = layer.name
+            print "Exchanging {} weights...".format(name)
+            try:
+                model_B.get_layer(name).set_weights(model_A.get_layer(name).get_weights())
+            except ValueError:
+                print "{} layer not found!".format(name)
+        return model_B

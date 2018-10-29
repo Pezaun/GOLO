@@ -52,6 +52,7 @@ if __name__ == "__main__":
 
     net            = nets[settings["NET_ARCH"]][0](1)
     out_dim_factor = nets[settings["NET_ARCH"]][1]
+
     net.summary()
 
     if settings["WEIGHTS"] != None:
