@@ -145,6 +145,8 @@ if __name__ == "__main__":
     fe = feature_extractor.FeatureExtractor(settings)
 
     nets = {"yolo_v1": (fe.yolo_convolutional_net, 0),
+            "yolo_v1_att": (fe.yolo_convolutional_net_att, 0),
+            "yolo_v1_att_2": (fe.yolo_convolutional_net_att_2, 0),
             "shot_yolo_A": (fe.shot_yolo_convolutional_net_A, 0),
             "shot_yolo_B": (fe.shot_yolo_convolutional_net_B, 0),
             "shot_yolo_C": (fe.shot_yolo_convolutional_net_C, 0),
