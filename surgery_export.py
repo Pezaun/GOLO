@@ -40,6 +40,7 @@ if __name__ == "__main__":
     nets = {"yolo_v1": (fe.yolo_convolutional_net, 0),
             "yolo_v1_att": (fe.yolo_convolutional_net_att, 0),
             "yolo_v1_att_2": (fe.yolo_convolutional_net_att_2, 0),
+            "yolo_v1_att_sum": (fe.yolo_convolutional_net_att_sum, 0),
             "shot_yolo_A": (fe.shot_yolo_convolutional_net_A, 0),
             "shot_yolo_B": (fe.shot_yolo_convolutional_net_B, 0),
             "shot_yolo_C": (fe.shot_yolo_convolutional_net_C, 0),
@@ -54,14 +55,14 @@ if __name__ == "__main__":
     # out_dim_factor = nets[settings["NET_ARCH"]][1]
 
 
-    net_0 = nets[settings["NET_ARCH"]][0](1)
+    net_0 = nets["yolo_v1"][0](1)
     net_0.summary()
-    # net_0.load_weights(settings["PRED_MODEL"])
+    net_0.load_weights(settings["PRED_MODEL"])
     out_dim_factor = nets[settings["NET_ARCH"]][1]
 
 
-    net   = nets["yolo_v1_att_2"][0](1)
-    out_dim_factor = nets["yolo_v1_att_2"][1]
+    net   = nets["yolo_v1_att_sum"][0](1)
+    out_dim_factor = nets["yolo_v1_att_sum"][1]
 
     fe.surgery(net_0, net)
 

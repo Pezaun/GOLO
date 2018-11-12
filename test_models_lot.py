@@ -144,6 +144,8 @@ if __name__ == "__main__":
     print "Predict..."
     fe = feature_extractor.FeatureExtractor(settings)
 
+    model_name = sys.argv[2]
+
     nets = {"yolo_v1": (fe.yolo_convolutional_net, 0),
             "yolo_v1_att": (fe.yolo_convolutional_net_att, 0),
             "yolo_v1_att_2": (fe.yolo_convolutional_net_att_2, 0),
@@ -160,7 +162,7 @@ if __name__ == "__main__":
 
     net            = nets[settings["NET_ARCH"]][0](1)
     out_dim_factor = nets[settings["NET_ARCH"]][1]
-    net.load_weights(settings["PRED_MODEL"])
+    net.load_weights(model_name)
 
     net.summary()
 

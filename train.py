@@ -39,6 +39,7 @@ if __name__ == "__main__":
     nets = {"yolo_v1": (fe.yolo_convolutional_net, 0),
             "yolo_v1_att": (fe.yolo_convolutional_net_att, 0),
             "yolo_v1_att_2": (fe.yolo_convolutional_net_att_2, 0),
+            "yolo_v1_att_sum": (fe.yolo_convolutional_net_att_sum, 0),
             "shot_yolo_A": (fe.shot_yolo_convolutional_net_A, 0),
             "shot_yolo_B": (fe.shot_yolo_convolutional_net_B, 0),
             "shot_yolo_C": (fe.shot_yolo_convolutional_net_C, 0),
@@ -67,7 +68,7 @@ if __name__ == "__main__":
     }
 
 
-    layers_to_freeze = ["0_conv","2_conv","4_conv","5_conv","6_conv","8_conv","12_conv","18_conv","19_conv","22_conv","24_conv","last_conv"]
+    layers_to_freeze = ["0_conv","0_bn","1_max","2_conv","2_bn","3_max","4_conv","4_bn","5_conv","5_bn","6_conv","6_bn","7_max","8_conv","8_bn","9_conv","9_bn","10_conv","10_bn","11_max","12_conv","12_bn","13_conv","13_bn","14_conv","14_bn","15_conv","15_bn","16_conv","16_bn","17_max","18_conv","18_bn","19_conv","19_bn","20_conv","20_bn","21_conv","21_bn","22_conv","22_bn","23_conv","23_bn","24_conv","24_bn","25_conv","26_bn","26_conv","27_bn"]
     fe.freeze_layers_from_list(layers_to_freeze, mode=False)
     # fe.freeze_layers(freeze_until=settings["FREEZE_NET_UNTIL"])
     net.compile(optimizer=opt[settings["OPTIMIZER"]], loss=fe.golo_loss)

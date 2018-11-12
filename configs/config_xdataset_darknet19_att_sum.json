@@ -1,6 +1,6 @@
 {
     "settings" : {
-        "NET_ARCH"                :"yolo_v1_att_2",
+        "NET_ARCH"                :"yolo_v1_att_sum",
         "NORM"                    :"A",
         "INPUT_RANGE"             : [320,608],
         "INPUT_SIZE"              : 416,
@@ -16,7 +16,7 @@
         "LAST_LAYERS_TUNE_EPOCHS" : 10,
         "MAX_EPOCHS"              : 500,
         "WARMUP"                  : 0,
-        "BASE_MODEL_WEIGHTS"      :"../golo/models/att_xdataset.h5",
+        "BASE_MODEL_WEIGHTS"      :"../golo/models/att_xdataset_sum.h5",
         "EPSILON"                 : 1e-10,
         "THRESHOLD"               : 0.6,
         "SCALE_NOOBJ"             : 1.0,
@@ -29,7 +29,7 @@
         "IMAGES_PATH"             :"/home/gabriel/datasets/X_Dataset_segmentation_3K/images",
         "LABELS_PATH"             :"/home/gabriel/datasets/X_Dataset_segmentation_3K/labels_voc",
         "TRAIN_MULT"              : 1,
-        "MODELS_PATH"             :"/data/golo_models/output_xdataset_darknet19_att_2",
+        "MODELS_PATH"             :"/data/golo_models/output_xdataset_darknet19_att_sum",
         "MONITORE_VALUE"          :"val_loss",
         "SAVE_DATA"               : true,
         "DEBUG"                   : false,
@@ -48,7 +48,7 @@
         "PRED_OUTPUT_PATH_PREDS"  :"/tmp/output_boxes",
         "PRED_INPUT_SIZE"         : 416,
         "LETTER_INPUT_IMAGE"      : true,
-        "PRED_MODEL"              :"/data/golo_models/output_xdataset_darknet19_att_2/golo_.111-1.81643952.hdf5",
+        "PRED_MODEL"              :"/data/golo_models/output_xdataset_darknet19_att_sum/golo_.166-0.99776769.hdf5",
         "PRED_CONF_THRES"         : 0.05,
         "NMS_THRESHOLD"           : 0.45
     }

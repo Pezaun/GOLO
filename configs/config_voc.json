@@ -9,7 +9,7 @@
         "BASE_MODEL_CLASSES"      : 20,   
         "CLASSES_LABEL"           :["aeroplane","bicycle","bird","boat","bottle","bus","car","cat","chair","cow","diningtable","dog","horse","motorbike","person","pottedplant","sheep","sofa","train","tvmonitor"],
         "CLASSES"                 : 20,
-        "FINETUNE"                : true,
+        "FINETUNE"                : false,
         "BATCH_SIZE"              : 12,
         "FREEZE_NET_UNTIL"        : "last_conv",
         "LAST_LAYERS_TUNE_EPOCHS" : 5,
