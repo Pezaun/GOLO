@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 from keras.callbacks import Callback
 from keras import backend as K
+from keras.engine.topology import Layer
 import numpy as np
 import warnings
 import cv2
 import sys
 import json
+import tensorflow as tf
 
 
 #=============#
@@ -114,6 +116,37 @@ class StagedReduceLROnPlateau(Callback):
 
     def in_cooldown(self):
         return self.cooldown_counter > 0
+
+
+
+class ReorgLayer(Layer):
+
+    def __init__(self, **kwargs):
+        # self.output_dim = output_dim
+        super(ReorgLayer, self).__init__(**kwargs)
+
+    def build(self, input_shape):
+        super(ReorgLayer, self).build(input_shape)
+
+    def call(self, input_tensor):
+        stride = 2
+        darknet = True
+        shapes = tf.shape(input_tensor)
+        channel_first = tf.transpose(input_tensor,(0,3,1,2))
+        reshape_tensor = tf.reshape(channel_first, (-1,shapes[3] // (stride ** 2), shapes[1], stride, shapes[2], stride))
+        permute_tensor = tf.transpose(reshape_tensor,(0,3,5,1,2,4))
+        target_tensor = tf.reshape(permute_tensor, (-1, shapes[3]*stride**2,shapes[1] // stride, shapes[2] // stride))
+        channel_last = tf.transpose(target_tensor,(0,2,3,1))
+        result = tf.reshape(channel_last, (-1,shapes[1]//stride, shapes[2]//stride, tf.cast(input_tensor.shape[3]*4, tf.int32)))
+        return result
+
+    def compute_output_shape(self, input_shape):
+        if input_shape[1] == None:
+            return (input_shape[0], input_shape[1], input_shape[2], input_shape[3]*4)
+        return (input_shape[0], input_shape[1]/2, input_shape[2]/2, input_shape[3]*4)
+
+    
+
 
 #=============#
 # Image Utils #

@@ -26,6 +26,7 @@ import tensorflow as tf
 import numpy as np
 import sys
 from keras import backend as K
+from utils import ReorgLayer
 
 
 def reorg(input_tensor, stride=2, darknet=True):
@@ -343,6 +344,7 @@ class FeatureExtractor:
     def yolo_convolutional_net(self,version):
         bn_epsilon = 0.0
         inputs = Input(shape=(None, None, 3))
+        # inputs = Input(batch_shape=(1,416,416,3))
        
         net = Conv2D(32, 3, padding="same", use_bias=False, name="0_conv")(inputs)
         net = BatchNormalization(epsilon=bn_epsilon, name="0_bn")(net)
@@ -438,7 +440,8 @@ class FeatureExtractor:
             c16 = LeakyReLU(alpha=0.1)(c16)            
 
         # c16 = Lambda(space_to_depth_x2)(c16)
-        c16 = Lambda(reorg)(c16)        
+        # c16 = Lambda(reorg)(c16)   
+        c16 = ReorgLayer()(c16)     
         net = Concatenate()([c16, net])
 
         net = Conv2D(1024, 3, padding="same", use_bias=False, name="{}_conv".format(conv_id))(net)
